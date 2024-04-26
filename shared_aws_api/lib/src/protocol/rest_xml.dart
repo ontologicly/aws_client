@@ -66,7 +66,7 @@ class RestXmlProtocol {
     dynamic payload,
     String? resultWrapper,
   }) async {
-    final rq = await _buildRequest(
+    final rq = await buildRequest(
       method,
       requestUri,
       signed,
@@ -130,7 +130,7 @@ class RestXmlProtocol {
     return RestXmlResponse(rs.headers, elem);
   }
 
-  Future<Request> _buildRequest(
+  Future<Request> buildRequest(
     String method,
     String requestUri,
     bool signed,
