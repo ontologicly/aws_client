@@ -31,7 +31,7 @@ void signAws4HmacSha256({
   final headerKeys = rq.headers.keys.map((s) => s.toLowerCase()).toList()
     ..sort();
 
-  final payloadHash = sha256.convert(rq.bodyBytes).toString();
+  final String payloadHash = rq.headers['x-amz-content-sha256']!;
   final canonical = [
     rq.method.toUpperCase(),
     Uri.encodeFull(rq.url.path),
