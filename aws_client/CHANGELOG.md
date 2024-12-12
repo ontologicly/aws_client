@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0
+
+- Expose `package:aws_client/credential_providers.dart` for advanced options to resolve the `AwsClientCredentials`
+- Remove double-encode of request URI when generating signature for S3
+- Internal refactoring of the query protocol
+- Internal refactor of enums serialization
+
+## 0.5.0
+
+- Generate all the APIs with version v2.1635.0 of the AWS SDK
+
 ## 0.4.3
 
 - Updated `pubspec.yaml`.
