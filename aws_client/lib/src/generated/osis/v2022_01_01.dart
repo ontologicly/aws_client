@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -1080,6 +1081,9 @@ class Pipeline {
   /// A list of tags associated with the given pipeline.
   final List<Tag>? tags;
 
+  /// The VPC endpoint service name for the pipeline.
+  final String? vpcEndpointService;
+
   /// The VPC interface endpoints that have access to the pipeline.
   final List<VpcEndpoint>? vpcEndpoints;
 
@@ -1100,6 +1104,7 @@ class Pipeline {
     this.status,
     this.statusReason,
     this.tags,
+    this.vpcEndpointService,
     this.vpcEndpoints,
   });
 
@@ -1145,6 +1150,7 @@ class Pipeline {
           ?.nonNulls
           .map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
+      vpcEndpointService: json['VpcEndpointService'] as String?,
       vpcEndpoints: (json['VpcEndpoints'] as List?)
           ?.nonNulls
           .map((e) => VpcEndpoint.fromJson(e as Map<String, dynamic>))
@@ -1169,6 +1175,7 @@ class Pipeline {
     final status = this.status;
     final statusReason = this.statusReason;
     final tags = this.tags;
+    final vpcEndpointService = this.vpcEndpointService;
     final vpcEndpoints = this.vpcEndpoints;
     return {
       if (bufferOptions != null) 'BufferOptions': bufferOptions,
@@ -1192,6 +1199,7 @@ class Pipeline {
       if (status != null) 'Status': status.value,
       if (statusReason != null) 'StatusReason': statusReason,
       if (tags != null) 'Tags': tags,
+      if (vpcEndpointService != null) 'VpcEndpointService': vpcEndpointService,
       if (vpcEndpoints != null) 'VpcEndpoints': vpcEndpoints,
     };
   }
@@ -1765,6 +1773,21 @@ class VpcEndpoint {
   }
 }
 
+enum VpcEndpointManagement {
+  customer('CUSTOMER'),
+  service('SERVICE'),
+  ;
+
+  final String value;
+
+  const VpcEndpointManagement(this.value);
+
+  static VpcEndpointManagement fromString(String value) => values.firstWhere(
+      (e) => e.value == value,
+      orElse: () =>
+          throw Exception('$value is not known in enum VpcEndpointManagement'));
+}
+
 enum VpcEndpointServiceName {
   opensearchServerless('OPENSEARCH_SERVERLESS'),
   ;
@@ -1791,10 +1814,15 @@ class VpcOptions {
   /// Options for attaching a VPC to a pipeline.
   final VpcAttachmentOptions? vpcAttachmentOptions;
 
+  /// Defines whether you or Amazon OpenSearch Ingestion service create and manage
+  /// the VPC endpoint configured for the pipeline.
+  final VpcEndpointManagement? vpcEndpointManagement;
+
   VpcOptions({
     required this.subnetIds,
     this.securityGroupIds,
     this.vpcAttachmentOptions,
+    this.vpcEndpointManagement,
   });
 
   factory VpcOptions.fromJson(Map<String, dynamic> json) {
@@ -1809,6 +1837,8 @@ class VpcOptions {
           ? VpcAttachmentOptions.fromJson(
               json['VpcAttachmentOptions'] as Map<String, dynamic>)
           : null,
+      vpcEndpointManagement: (json['VpcEndpointManagement'] as String?)
+          ?.let(VpcEndpointManagement.fromString),
     );
   }
 
@@ -1816,11 +1846,14 @@ class VpcOptions {
     final subnetIds = this.subnetIds;
     final securityGroupIds = this.securityGroupIds;
     final vpcAttachmentOptions = this.vpcAttachmentOptions;
+    final vpcEndpointManagement = this.vpcEndpointManagement;
     return {
       'SubnetIds': subnetIds,
       if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
       if (vpcAttachmentOptions != null)
         'VpcAttachmentOptions': vpcAttachmentOptions,
+      if (vpcEndpointManagement != null)
+        'VpcEndpointManagement': vpcEndpointManagement.value,
     };
   }
 }

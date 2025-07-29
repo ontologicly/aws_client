@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -3736,7 +3737,9 @@ class CloudFront {
     );
   }
 
-  /// List tags for a CloudFront resource.
+  /// List tags for a CloudFront resource. For more information, see <a
+  /// href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging
+  /// a distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
   ///
   /// May throw [AccessDenied].
   /// May throw [InvalidArgument].
@@ -3807,7 +3810,9 @@ class CloudFront {
     );
   }
 
-  /// Add tags to a CloudFront resource.
+  /// Add tags to a CloudFront resource. For more information, see <a
+  /// href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging
+  /// a distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
   ///
   /// May throw [AccessDenied].
   /// May throw [InvalidArgument].
@@ -3907,7 +3912,9 @@ class CloudFront {
     );
   }
 
-  /// Remove tags from a CloudFront resource.
+  /// Remove tags from a CloudFront resource. For more information, see <a
+  /// href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging
+  /// a distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
   ///
   /// May throw [AccessDenied].
   /// May throw [InvalidArgument].
@@ -5303,10 +5310,10 @@ class AllowedMethods {
 /// in the <i>Amazon CloudFront Developer Guide</i>.
 ///
 /// If you don't want to specify any cache behaviors, include only an empty
-/// <code>CacheBehaviors</code> element. For more information, see <a
+/// <code>CacheBehaviors</code> element. Don't specify an empty individual
+/// <code>CacheBehavior</code> element, because this is invalid. For more
+/// information, see <a
 /// href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CacheBehaviors.html">CacheBehaviors</a>.
-/// Don't include an empty <code>CacheBehavior</code> element because this is
-/// invalid.
 ///
 /// To delete all cache behaviors in an existing distribution, update the
 /// distribution configuration and include only an empty
@@ -6376,7 +6383,10 @@ enum CachePolicyType {
 /// Origin headers for the responses to be cached correctly.
 class CachedMethods {
   /// A complex type that contains the HTTP methods that you want CloudFront to
-  /// cache responses to.
+  /// cache responses to. Valid values for <code>CachedMethods</code> include
+  /// <code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code>, depending on
+  /// which caching option you choose. For more information, see the preceding
+  /// section.
   final List<Method> items;
 
   /// The number of HTTP methods for which you want CloudFront to cache responses.

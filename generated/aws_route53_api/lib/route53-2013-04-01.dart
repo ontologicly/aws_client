@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -5703,6 +5704,7 @@ enum CloudWatchRegion {
   apSoutheast_4('ap-southeast-4'),
   ilCentral_1('il-central-1'),
   caWest_1('ca-west-1'),
+  apSoutheast_5('ap-southeast-5'),
   ;
 
   final String value;
@@ -10227,6 +10229,7 @@ enum ResourceRecordSetRegion {
   apSoutheast_4('ap-southeast-4'),
   ilCentral_1('il-central-1'),
   caWest_1('ca-west-1'),
+  apSoutheast_5('ap-southeast-5'),
   ;
 
   final String value;
@@ -11383,6 +11386,7 @@ enum VPCRegion {
   apSoutheast_4('ap-southeast-4'),
   ilCentral_1('il-central-1'),
   caWest_1('ca-west-1'),
+  apSoutheast_5('ap-southeast-5'),
   ;
 
   final String value;

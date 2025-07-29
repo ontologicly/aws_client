@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -683,6 +684,18 @@ class Finspace {
   /// You can add one of the following values:
   ///
   /// <ul>
+  /// <li>
+  /// <code>kx.sg.large</code> – The host type with a configuration of 16 GiB
+  /// memory and 2 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.xlarge</code> – The host type with a configuration of 32 GiB
+  /// memory and 4 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.2xlarge</code> – The host type with a configuration of 64 GiB
+  /// memory and 8 vCPUs.
+  /// </li>
   /// <li>
   /// <code>kx.sg.4xlarge</code> – The host type with a configuration of 108 GiB
   /// memory and 16 vCPUs.
@@ -5056,6 +5069,18 @@ class GetKxScalingGroupResponse {
   ///
   /// <ul>
   /// <li>
+  /// <code>kx.sg.large</code> – The host type with a configuration of 16 GiB
+  /// memory and 2 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.xlarge</code> – The host type with a configuration of 32 GiB
+  /// memory and 4 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.2xlarge</code> – The host type with a configuration of 64 GiB
+  /// memory and 8 vCPUs.
+  /// </li>
+  /// <li>
   /// <code>kx.sg.4xlarge</code> – The host type with a configuration of 108 GiB
   /// memory and 16 vCPUs.
   /// </li>
@@ -6874,6 +6899,18 @@ class KxScalingGroup {
   /// You can add one of the following values:
   ///
   /// <ul>
+  /// <li>
+  /// <code>kx.sg.large</code> – The host type with a configuration of 16 GiB
+  /// memory and 2 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.xlarge</code> – The host type with a configuration of 32 GiB
+  /// memory and 4 vCPUs.
+  /// </li>
+  /// <li>
+  /// <code>kx.sg.2xlarge</code> – The host type with a configuration of 64 GiB
+  /// memory and 8 vCPUs.
+  /// </li>
   /// <li>
   /// <code>kx.sg.4xlarge</code> – The host type with a configuration of 108 GiB
   /// memory and 16 vCPUs.

@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -109,6 +110,24 @@ class Mediapackagev2 {
   /// Parameter [description] :
   /// Enter any descriptive text that helps you to identify the channel.
   ///
+  /// Parameter [inputType] :
+  /// The input type will be an immutable field which will be used to define
+  /// whether the channel will allow CMAF ingest or HLS ingest. If unprovided,
+  /// it will default to HLS to preserve current behavior.
+  ///
+  /// The allowed values are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>HLS</code> - The HLS streaming specification (which defines M3U8
+  /// manifests and TS segments).
+  /// </li>
+  /// <li>
+  /// <code>CMAF</code> - The DASH-IF CMAF Ingest specification (which defines
+  /// CMAF segments with optional DASH manifests).
+  /// </li>
+  /// </ul>
+  ///
   /// Parameter [tags] :
   /// A comma-separated list of tag key:value pairs that you define. For
   /// example:
@@ -121,6 +140,7 @@ class Mediapackagev2 {
     required String channelName,
     String? clientToken,
     String? description,
+    InputType? inputType,
     Map<String, String>? tags,
   }) async {
     final headers = <String, String>{
@@ -129,6 +149,7 @@ class Mediapackagev2 {
     final $payload = <String, dynamic>{
       'ChannelName': channelName,
       if (description != null) 'Description': description,
+      if (inputType != null) 'InputType': inputType.value,
       if (tags != null) 'tags': tags,
     };
     final response = await _protocol.send(
@@ -248,6 +269,9 @@ class Mediapackagev2 {
   /// Parameter [description] :
   /// Enter any descriptive text that helps you to identify the origin endpoint.
   ///
+  /// Parameter [forceEndpointErrorConfiguration] :
+  /// The failover settings for the endpoint.
+  ///
   /// Parameter [hlsManifests] :
   /// An HTTP live streaming (HLS) manifest configuration.
   ///
@@ -279,6 +303,7 @@ class Mediapackagev2 {
     String? clientToken,
     List<CreateDashManifestConfiguration>? dashManifests,
     String? description,
+    ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration,
     List<CreateHlsManifestConfiguration>? hlsManifests,
     List<CreateLowLatencyHlsManifestConfiguration>? lowLatencyHlsManifests,
     Segment? segment,
@@ -299,6 +324,8 @@ class Mediapackagev2 {
       'OriginEndpointName': originEndpointName,
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,
@@ -1100,6 +1127,9 @@ class Mediapackagev2 {
   /// ETag does not match the resource's current entity tag, the update request
   /// will be rejected.
   ///
+  /// Parameter [forceEndpointErrorConfiguration] :
+  /// The failover settings for the endpoint.
+  ///
   /// Parameter [hlsManifests] :
   /// An HTTP live streaming (HLS) manifest configuration.
   ///
@@ -1123,6 +1153,7 @@ class Mediapackagev2 {
     List<CreateDashManifestConfiguration>? dashManifests,
     String? description,
     String? eTag,
+    ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration,
     List<CreateHlsManifestConfiguration>? hlsManifests,
     List<CreateLowLatencyHlsManifestConfiguration>? lowLatencyHlsManifests,
     Segment? segment,
@@ -1141,6 +1172,8 @@ class Mediapackagev2 {
       'ContainerType': containerType.value,
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,
@@ -1267,6 +1300,24 @@ class ChannelListConfiguration {
   /// identification purposes.
   final String? description;
 
+  /// The input type will be an immutable field which will be used to define
+  /// whether the channel will allow CMAF ingest or HLS ingest. If unprovided, it
+  /// will default to HLS to preserve current behavior.
+  ///
+  /// The allowed values are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>HLS</code> - The HLS streaming specification (which defines M3U8
+  /// manifests and TS segments).
+  /// </li>
+  /// <li>
+  /// <code>CMAF</code> - The DASH-IF CMAF Ingest specification (which defines
+  /// CMAF segments with optional DASH manifests).
+  /// </li>
+  /// </ul>
+  final InputType? inputType;
+
   ChannelListConfiguration({
     required this.arn,
     required this.channelGroupName,
@@ -1274,6 +1325,7 @@ class ChannelListConfiguration {
     required this.createdAt,
     required this.modifiedAt,
     this.description,
+    this.inputType,
   });
 
   factory ChannelListConfiguration.fromJson(Map<String, dynamic> json) {
@@ -1284,6 +1336,7 @@ class ChannelListConfiguration {
       createdAt: nonNullableTimeStampFromJson(json['CreatedAt'] as Object),
       modifiedAt: nonNullableTimeStampFromJson(json['ModifiedAt'] as Object),
       description: json['Description'] as String?,
+      inputType: (json['InputType'] as String?)?.let(InputType.fromString),
     );
   }
 
@@ -1294,6 +1347,7 @@ class ChannelListConfiguration {
     final createdAt = this.createdAt;
     final modifiedAt = this.modifiedAt;
     final description = this.description;
+    final inputType = this.inputType;
     return {
       'Arn': arn,
       'ChannelGroupName': channelGroupName,
@@ -1301,6 +1355,7 @@ class ChannelListConfiguration {
       'CreatedAt': unixTimestampToJson(createdAt),
       'ModifiedAt': unixTimestampToJson(modifiedAt),
       if (description != null) 'Description': description,
+      if (inputType != null) 'InputType': inputType.value,
     };
   }
 }
@@ -1441,6 +1496,24 @@ class CreateChannelResponse {
   final String? eTag;
   final List<IngestEndpoint>? ingestEndpoints;
 
+  /// The input type will be an immutable field which will be used to define
+  /// whether the channel will allow CMAF ingest or HLS ingest. If unprovided, it
+  /// will default to HLS to preserve current behavior.
+  ///
+  /// The allowed values are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>HLS</code> - The HLS streaming specification (which defines M3U8
+  /// manifests and TS segments).
+  /// </li>
+  /// <li>
+  /// <code>CMAF</code> - The DASH-IF CMAF Ingest specification (which defines
+  /// CMAF segments with optional DASH manifests).
+  /// </li>
+  /// </ul>
+  final InputType? inputType;
+
   /// The comma-separated list of tag key:value pairs assigned to the channel.
   final Map<String, String>? tags;
 
@@ -1453,6 +1526,7 @@ class CreateChannelResponse {
     this.description,
     this.eTag,
     this.ingestEndpoints,
+    this.inputType,
     this.tags,
   });
 
@@ -1469,6 +1543,7 @@ class CreateChannelResponse {
           ?.nonNulls
           .map((e) => IngestEndpoint.fromJson(e as Map<String, dynamic>))
           .toList(),
+      inputType: (json['InputType'] as String?)?.let(InputType.fromString),
       tags: (json['Tags'] as Map<String, dynamic>?)
           ?.map((k, e) => MapEntry(k, e as String)),
     );
@@ -1483,6 +1558,7 @@ class CreateChannelResponse {
     final description = this.description;
     final eTag = this.eTag;
     final ingestEndpoints = this.ingestEndpoints;
+    final inputType = this.inputType;
     final tags = this.tags;
     return {
       'Arn': arn,
@@ -1493,6 +1569,7 @@ class CreateChannelResponse {
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
       if (ingestEndpoints != null) 'IngestEndpoints': ingestEndpoints,
+      if (inputType != null) 'InputType': inputType.value,
       if (tags != null) 'Tags': tags,
     };
   }
@@ -1777,6 +1854,9 @@ class CreateOriginEndpointResponse {
   /// can be used to safely make concurrent updates to the resource.
   final String? eTag;
 
+  /// The failover settings for the endpoint.
+  final ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration;
+
   /// An HTTP live streaming (HLS) manifest configuration.
   final List<GetHlsManifestConfiguration>? hlsManifests;
 
@@ -1804,6 +1884,7 @@ class CreateOriginEndpointResponse {
     this.dashManifests,
     this.description,
     this.eTag,
+    this.forceEndpointErrorConfiguration,
     this.hlsManifests,
     this.lowLatencyHlsManifests,
     this.startoverWindowSeconds,
@@ -1828,6 +1909,12 @@ class CreateOriginEndpointResponse {
           .toList(),
       description: json['Description'] as String?,
       eTag: json['ETag'] as String?,
+      forceEndpointErrorConfiguration:
+          json['ForceEndpointErrorConfiguration'] != null
+              ? ForceEndpointErrorConfiguration.fromJson(
+                  json['ForceEndpointErrorConfiguration']
+                      as Map<String, dynamic>)
+              : null,
       hlsManifests: (json['HlsManifests'] as List?)
           ?.nonNulls
           .map((e) =>
@@ -1856,6 +1943,8 @@ class CreateOriginEndpointResponse {
     final dashManifests = this.dashManifests;
     final description = this.description;
     final eTag = this.eTag;
+    final forceEndpointErrorConfiguration =
+        this.forceEndpointErrorConfiguration;
     final hlsManifests = this.hlsManifests;
     final lowLatencyHlsManifests = this.lowLatencyHlsManifests;
     final startoverWindowSeconds = this.startoverWindowSeconds;
@@ -1872,6 +1961,8 @@ class CreateOriginEndpointResponse {
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,
@@ -2044,6 +2135,7 @@ enum DrmSystem {
   fairplay('FAIRPLAY'),
   playready('PLAYREADY'),
   widevine('WIDEVINE'),
+  irdeto('IRDETO'),
   ;
 
   final String value;
@@ -2261,6 +2353,23 @@ class EncryptionMethod {
   }
 }
 
+enum EndpointErrorCondition {
+  staleManifest('STALE_MANIFEST'),
+  incompleteManifest('INCOMPLETE_MANIFEST'),
+  missingDrmKey('MISSING_DRM_KEY'),
+  slateInput('SLATE_INPUT'),
+  ;
+
+  final String value;
+
+  const EndpointErrorCondition(this.value);
+
+  static EndpointErrorCondition fromString(String value) =>
+      values.firstWhere((e) => e.value == value,
+          orElse: () => throw Exception(
+              '$value is not known in enum EndpointErrorCondition'));
+}
+
 /// Filter configuration includes settings for manifest filtering, start and end
 /// times, and time delay that apply to all of your egress requests for this
 /// manifest.
@@ -2313,6 +2422,52 @@ class FilterConfiguration {
       if (manifestFilter != null) 'ManifestFilter': manifestFilter,
       if (start != null) 'Start': unixTimestampToJson(start),
       if (timeDelaySeconds != null) 'TimeDelaySeconds': timeDelaySeconds,
+    };
+  }
+}
+
+/// The failover settings for the endpoint.
+class ForceEndpointErrorConfiguration {
+  /// The failover conditions for the endpoint. The options are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>STALE_MANIFEST</code> - The manifest stalled and there are no new
+  /// segments or parts.
+  /// </li>
+  /// <li>
+  /// <code>INCOMPLETE_MANIFEST</code> - There is a gap in the manifest.
+  /// </li>
+  /// <li>
+  /// <code>MISSING_DRM_KEY</code> - Key rotation is enabled but we're unable to
+  /// fetch the key for the current key period.
+  /// </li>
+  /// <li>
+  /// <code>SLATE_INPUT</code> - The segments which contain slate content are
+  /// considered to be missing content.
+  /// </li>
+  /// </ul>
+  final List<EndpointErrorCondition>? endpointErrorConditions;
+
+  ForceEndpointErrorConfiguration({
+    this.endpointErrorConditions,
+  });
+
+  factory ForceEndpointErrorConfiguration.fromJson(Map<String, dynamic> json) {
+    return ForceEndpointErrorConfiguration(
+      endpointErrorConditions: (json['EndpointErrorConditions'] as List?)
+          ?.nonNulls
+          .map((e) => EndpointErrorCondition.fromString((e as String)))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final endpointErrorConditions = this.endpointErrorConditions;
+    return {
+      if (endpointErrorConditions != null)
+        'EndpointErrorConditions':
+            endpointErrorConditions.map((e) => e.value).toList(),
     };
   }
 }
@@ -2462,6 +2617,24 @@ class GetChannelResponse {
   final String? eTag;
   final List<IngestEndpoint>? ingestEndpoints;
 
+  /// The input type will be an immutable field which will be used to define
+  /// whether the channel will allow CMAF ingest or HLS ingest. If unprovided, it
+  /// will default to HLS to preserve current behavior.
+  ///
+  /// The allowed values are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>HLS</code> - The HLS streaming specification (which defines M3U8
+  /// manifests and TS segments).
+  /// </li>
+  /// <li>
+  /// <code>CMAF</code> - The DASH-IF CMAF Ingest specification (which defines
+  /// CMAF segments with optional DASH manifests).
+  /// </li>
+  /// </ul>
+  final InputType? inputType;
+
   /// The comma-separated list of tag key:value pairs assigned to the channel.
   final Map<String, String>? tags;
 
@@ -2474,6 +2647,7 @@ class GetChannelResponse {
     this.description,
     this.eTag,
     this.ingestEndpoints,
+    this.inputType,
     this.tags,
   });
 
@@ -2490,6 +2664,7 @@ class GetChannelResponse {
           ?.nonNulls
           .map((e) => IngestEndpoint.fromJson(e as Map<String, dynamic>))
           .toList(),
+      inputType: (json['InputType'] as String?)?.let(InputType.fromString),
       tags: (json['Tags'] as Map<String, dynamic>?)
           ?.map((k, e) => MapEntry(k, e as String)),
     );
@@ -2504,6 +2679,7 @@ class GetChannelResponse {
     final description = this.description;
     final eTag = this.eTag;
     final ingestEndpoints = this.ingestEndpoints;
+    final inputType = this.inputType;
     final tags = this.tags;
     return {
       'Arn': arn,
@@ -2514,6 +2690,7 @@ class GetChannelResponse {
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
       if (ingestEndpoints != null) 'IngestEndpoints': ingestEndpoints,
+      if (inputType != null) 'InputType': inputType.value,
       if (tags != null) 'Tags': tags,
     };
   }
@@ -2928,6 +3105,9 @@ class GetOriginEndpointResponse {
   /// can be used to safely make concurrent updates to the resource.
   final String? eTag;
 
+  /// The failover settings for the endpoint.
+  final ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration;
+
   /// An HTTP live streaming (HLS) manifest configuration.
   final List<GetHlsManifestConfiguration>? hlsManifests;
 
@@ -2955,6 +3135,7 @@ class GetOriginEndpointResponse {
     this.dashManifests,
     this.description,
     this.eTag,
+    this.forceEndpointErrorConfiguration,
     this.hlsManifests,
     this.lowLatencyHlsManifests,
     this.startoverWindowSeconds,
@@ -2979,6 +3160,12 @@ class GetOriginEndpointResponse {
           .toList(),
       description: json['Description'] as String?,
       eTag: json['ETag'] as String?,
+      forceEndpointErrorConfiguration:
+          json['ForceEndpointErrorConfiguration'] != null
+              ? ForceEndpointErrorConfiguration.fromJson(
+                  json['ForceEndpointErrorConfiguration']
+                      as Map<String, dynamic>)
+              : null,
       hlsManifests: (json['HlsManifests'] as List?)
           ?.nonNulls
           .map((e) =>
@@ -3007,6 +3194,8 @@ class GetOriginEndpointResponse {
     final dashManifests = this.dashManifests;
     final description = this.description;
     final eTag = this.eTag;
+    final forceEndpointErrorConfiguration =
+        this.forceEndpointErrorConfiguration;
     final hlsManifests = this.hlsManifests;
     final lowLatencyHlsManifests = this.lowLatencyHlsManifests;
     final startoverWindowSeconds = this.startoverWindowSeconds;
@@ -3023,6 +3212,8 @@ class GetOriginEndpointResponse {
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,
@@ -3061,6 +3252,20 @@ class IngestEndpoint {
       if (url != null) 'Url': url,
     };
   }
+}
+
+enum InputType {
+  hls('HLS'),
+  cmaf('CMAF'),
+  ;
+
+  final String value;
+
+  const InputType(this.value);
+
+  static InputType fromString(String value) => values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('$value is not known in enum InputType'));
 }
 
 class ListChannelGroupsResponse {
@@ -3350,6 +3555,9 @@ class OriginEndpointListConfiguration {
   /// future identification purposes.
   final String? description;
 
+  /// The failover settings for the endpoint.
+  final ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration;
+
   /// An HTTP live streaming (HLS) manifest configuration.
   final List<ListHlsManifestConfiguration>? hlsManifests;
 
@@ -3368,6 +3576,7 @@ class OriginEndpointListConfiguration {
     this.createdAt,
     this.dashManifests,
     this.description,
+    this.forceEndpointErrorConfiguration,
     this.hlsManifests,
     this.lowLatencyHlsManifests,
     this.modifiedAt,
@@ -3388,6 +3597,12 @@ class OriginEndpointListConfiguration {
               ListDashManifestConfiguration.fromJson(e as Map<String, dynamic>))
           .toList(),
       description: json['Description'] as String?,
+      forceEndpointErrorConfiguration:
+          json['ForceEndpointErrorConfiguration'] != null
+              ? ForceEndpointErrorConfiguration.fromJson(
+                  json['ForceEndpointErrorConfiguration']
+                      as Map<String, dynamic>)
+              : null,
       hlsManifests: (json['HlsManifests'] as List?)
           ?.nonNulls
           .map((e) =>
@@ -3411,6 +3626,8 @@ class OriginEndpointListConfiguration {
     final createdAt = this.createdAt;
     final dashManifests = this.dashManifests;
     final description = this.description;
+    final forceEndpointErrorConfiguration =
+        this.forceEndpointErrorConfiguration;
     final hlsManifests = this.hlsManifests;
     final lowLatencyHlsManifests = this.lowLatencyHlsManifests;
     final modifiedAt = this.modifiedAt;
@@ -3423,6 +3640,8 @@ class OriginEndpointListConfiguration {
       if (createdAt != null) 'CreatedAt': unixTimestampToJson(createdAt),
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,
@@ -3913,6 +4132,24 @@ class UpdateChannelResponse {
   final String? eTag;
   final List<IngestEndpoint>? ingestEndpoints;
 
+  /// The input type will be an immutable field which will be used to define
+  /// whether the channel will allow CMAF ingest or HLS ingest. If unprovided, it
+  /// will default to HLS to preserve current behavior.
+  ///
+  /// The allowed values are:
+  ///
+  /// <ul>
+  /// <li>
+  /// <code>HLS</code> - The HLS streaming specification (which defines M3U8
+  /// manifests and TS segments).
+  /// </li>
+  /// <li>
+  /// <code>CMAF</code> - The DASH-IF CMAF Ingest specification (which defines
+  /// CMAF segments with optional DASH manifests).
+  /// </li>
+  /// </ul>
+  final InputType? inputType;
+
   /// The comma-separated list of tag key:value pairs assigned to the channel.
   final Map<String, String>? tags;
 
@@ -3925,6 +4162,7 @@ class UpdateChannelResponse {
     this.description,
     this.eTag,
     this.ingestEndpoints,
+    this.inputType,
     this.tags,
   });
 
@@ -3941,6 +4179,7 @@ class UpdateChannelResponse {
           ?.nonNulls
           .map((e) => IngestEndpoint.fromJson(e as Map<String, dynamic>))
           .toList(),
+      inputType: (json['InputType'] as String?)?.let(InputType.fromString),
       tags: (json['tags'] as Map<String, dynamic>?)
           ?.map((k, e) => MapEntry(k, e as String)),
     );
@@ -3955,6 +4194,7 @@ class UpdateChannelResponse {
     final description = this.description;
     final eTag = this.eTag;
     final ingestEndpoints = this.ingestEndpoints;
+    final inputType = this.inputType;
     final tags = this.tags;
     return {
       'Arn': arn,
@@ -3965,6 +4205,7 @@ class UpdateChannelResponse {
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
       if (ingestEndpoints != null) 'IngestEndpoints': ingestEndpoints,
+      if (inputType != null) 'InputType': inputType.value,
       if (tags != null) 'tags': tags,
     };
   }
@@ -4012,6 +4253,9 @@ class UpdateOriginEndpointResponse {
   /// can be used to safely make concurrent updates to the resource.
   final String? eTag;
 
+  /// The failover settings for the endpoint.
+  final ForceEndpointErrorConfiguration? forceEndpointErrorConfiguration;
+
   /// An HTTP live streaming (HLS) manifest configuration.
   final List<GetHlsManifestConfiguration>? hlsManifests;
 
@@ -4039,6 +4283,7 @@ class UpdateOriginEndpointResponse {
     this.dashManifests,
     this.description,
     this.eTag,
+    this.forceEndpointErrorConfiguration,
     this.hlsManifests,
     this.lowLatencyHlsManifests,
     this.startoverWindowSeconds,
@@ -4063,6 +4308,12 @@ class UpdateOriginEndpointResponse {
           .toList(),
       description: json['Description'] as String?,
       eTag: json['ETag'] as String?,
+      forceEndpointErrorConfiguration:
+          json['ForceEndpointErrorConfiguration'] != null
+              ? ForceEndpointErrorConfiguration.fromJson(
+                  json['ForceEndpointErrorConfiguration']
+                      as Map<String, dynamic>)
+              : null,
       hlsManifests: (json['HlsManifests'] as List?)
           ?.nonNulls
           .map((e) =>
@@ -4091,6 +4342,8 @@ class UpdateOriginEndpointResponse {
     final dashManifests = this.dashManifests;
     final description = this.description;
     final eTag = this.eTag;
+    final forceEndpointErrorConfiguration =
+        this.forceEndpointErrorConfiguration;
     final hlsManifests = this.hlsManifests;
     final lowLatencyHlsManifests = this.lowLatencyHlsManifests;
     final startoverWindowSeconds = this.startoverWindowSeconds;
@@ -4107,6 +4360,8 @@ class UpdateOriginEndpointResponse {
       if (dashManifests != null) 'DashManifests': dashManifests,
       if (description != null) 'Description': description,
       if (eTag != null) 'ETag': eTag,
+      if (forceEndpointErrorConfiguration != null)
+        'ForceEndpointErrorConfiguration': forceEndpointErrorConfiguration,
       if (hlsManifests != null) 'HlsManifests': hlsManifests,
       if (lowLatencyHlsManifests != null)
         'LowLatencyHlsManifests': lowLatencyHlsManifests,

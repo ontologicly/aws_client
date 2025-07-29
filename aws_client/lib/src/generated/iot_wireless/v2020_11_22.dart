@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -5693,6 +5694,7 @@ enum FuotaDeviceStatus {
   memoryError('MemoryError'),
   mICError('MICError'),
   successful('Successful'),
+  deviceExistInConflictFuotaTask('Device_exist_in_conflict_fuota_task'),
   ;
 
   final String value;
@@ -9617,6 +9619,8 @@ enum MessageType {
 enum MetricName {
   deviceRSSI('DeviceRSSI'),
   deviceSNR('DeviceSNR'),
+  deviceRoamingRSSI('DeviceRoamingRSSI'),
+  deviceRoamingSNR('DeviceRoamingSNR'),
   deviceUplinkCount('DeviceUplinkCount'),
   deviceDownlinkCount('DeviceDownlinkCount'),
   deviceUplinkLostCount('DeviceUplinkLostCount'),

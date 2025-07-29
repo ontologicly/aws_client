@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -746,6 +747,16 @@ class CloudWatchInternetMonitor {
   /// <code>TOP_LOCATION_DETAILS</code>: Provides TTFB for Amazon CloudFront,
   /// your current configuration, and the best performing EC2 configuration, at
   /// 1 hour intervals.
+  /// </li>
+  /// <li>
+  /// <code>OVERALL_TRAFFIC_SUGGESTIONS</code>: Provides TTFB, using a 30-day
+  /// weighted average, for all traffic in each Amazon Web Services location
+  /// that is monitored.
+  /// </li>
+  /// <li>
+  /// <code>OVERALL_TRAFFIC_SUGGESTIONS_DETAILS</code>: Provides TTFB, using a
+  /// 30-day weighted average, for each top location, for a proposed Amazon Web
+  /// Services location. Must provide a Amazon Web Services location to search.
   /// </li>
   /// </ul>
   /// For lists of the fields returned with each query type and more information
@@ -2820,6 +2831,8 @@ enum QueryType {
   measurements('MEASUREMENTS'),
   topLocations('TOP_LOCATIONS'),
   topLocationDetails('TOP_LOCATION_DETAILS'),
+  overallTrafficSuggestions('OVERALL_TRAFFIC_SUGGESTIONS'),
+  overallTrafficSuggestionsDetails('OVERALL_TRAFFIC_SUGGESTIONS_DETAILS'),
   ;
 
   final String value;

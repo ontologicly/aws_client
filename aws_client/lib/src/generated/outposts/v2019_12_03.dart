@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -2449,20 +2450,27 @@ class InstanceTypeCapacity {
 class InstanceTypeItem {
   final String? instanceType;
 
+  /// The number of default VCPUs in an instance type.
+  final int? vCPUs;
+
   InstanceTypeItem({
     this.instanceType,
+    this.vCPUs,
   });
 
   factory InstanceTypeItem.fromJson(Map<String, dynamic> json) {
     return InstanceTypeItem(
       instanceType: json['InstanceType'] as String?,
+      vCPUs: json['VCPUs'] as int?,
     );
   }
 
   Map<String, dynamic> toJson() {
     final instanceType = this.instanceType;
+    final vCPUs = this.vCPUs;
     return {
       if (instanceType != null) 'InstanceType': instanceType,
+      if (vCPUs != null) 'VCPUs': vCPUs,
     };
   }
 }

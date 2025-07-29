@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -844,6 +845,10 @@ class Application {
   /// The Amazon Resource Name (ARN) of the application.
   final String? arn;
 
+  /// The Amazon Resource Names of the associated AWS Systems Manager for SAP
+  /// applications.
+  final List<String>? associatedApplicationArns;
+
   /// The components of the application.
   final List<String>? components;
 
@@ -868,6 +873,7 @@ class Application {
   Application({
     this.appRegistryArn,
     this.arn,
+    this.associatedApplicationArns,
     this.components,
     this.discoveryStatus,
     this.id,
@@ -881,6 +887,10 @@ class Application {
     return Application(
       appRegistryArn: json['AppRegistryArn'] as String?,
       arn: json['Arn'] as String?,
+      associatedApplicationArns: (json['AssociatedApplicationArns'] as List?)
+          ?.nonNulls
+          .map((e) => e as String)
+          .toList(),
       components: (json['Components'] as List?)
           ?.nonNulls
           .map((e) => e as String)
@@ -898,6 +908,7 @@ class Application {
   Map<String, dynamic> toJson() {
     final appRegistryArn = this.appRegistryArn;
     final arn = this.arn;
+    final associatedApplicationArns = this.associatedApplicationArns;
     final components = this.components;
     final discoveryStatus = this.discoveryStatus;
     final id = this.id;
@@ -908,6 +919,8 @@ class Application {
     return {
       if (appRegistryArn != null) 'AppRegistryArn': appRegistryArn,
       if (arn != null) 'Arn': arn,
+      if (associatedApplicationArns != null)
+        'AssociatedApplicationArns': associatedApplicationArns,
       if (components != null) 'Components': components,
       if (discoveryStatus != null) 'DiscoveryStatus': discoveryStatus.value,
       if (id != null) 'Id': id,
@@ -1508,6 +1521,10 @@ class Database {
   /// The ID of the component.
   final String? componentId;
 
+  /// The Amazon Resource Names of the connected AWS Systems Manager for SAP
+  /// components.
+  final List<String>? connectedComponentArns;
+
   /// The credentials of the database.
   final List<ApplicationCredential>? credentials;
 
@@ -1536,6 +1553,7 @@ class Database {
     this.applicationId,
     this.arn,
     this.componentId,
+    this.connectedComponentArns,
     this.credentials,
     this.databaseId,
     this.databaseName,
@@ -1551,6 +1569,10 @@ class Database {
       applicationId: json['ApplicationId'] as String?,
       arn: json['Arn'] as String?,
       componentId: json['ComponentId'] as String?,
+      connectedComponentArns: (json['ConnectedComponentArns'] as List?)
+          ?.nonNulls
+          .map((e) => e as String)
+          .toList(),
       credentials: (json['Credentials'] as List?)
           ?.nonNulls
           .map((e) => ApplicationCredential.fromJson(e as Map<String, dynamic>))
@@ -1570,6 +1592,7 @@ class Database {
     final applicationId = this.applicationId;
     final arn = this.arn;
     final componentId = this.componentId;
+    final connectedComponentArns = this.connectedComponentArns;
     final credentials = this.credentials;
     final databaseId = this.databaseId;
     final databaseName = this.databaseName;
@@ -1582,6 +1605,8 @@ class Database {
       if (applicationId != null) 'ApplicationId': applicationId,
       if (arn != null) 'Arn': arn,
       if (componentId != null) 'ComponentId': componentId,
+      if (connectedComponentArns != null)
+        'ConnectedComponentArns': connectedComponentArns,
       if (credentials != null) 'Credentials': credentials,
       if (databaseId != null) 'DatabaseId': databaseId,
       if (databaseName != null) 'DatabaseName': databaseName,

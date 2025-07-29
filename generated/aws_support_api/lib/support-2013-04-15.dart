@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -1356,7 +1357,9 @@ class AddCommunicationToCaseResponse {
 }
 
 /// An attachment to a case communication. The attachment consists of the file
-/// name and the content of the file.
+/// name and the content of the file. Each attachment file size should not
+/// exceed 5 MB. File types that are supported include the following: pdf,
+/// jpeg,.doc, .log, .text
 class Attachment {
   /// The content of the attachment file.
   final Uint8List? data;
@@ -1460,6 +1463,12 @@ class AttachmentDetails {
 ///
 /// <ul>
 /// <li>
+/// <code>all-open</code>
+/// </li>
+/// <li>
+/// <code>customer-action-completed</code>
+/// </li>
+/// <li>
 /// <code>opened</code>
 /// </li>
 /// <li>
@@ -1530,6 +1539,12 @@ class CaseDetails {
   /// Valid values:
   ///
   /// <ul>
+  /// <li>
+  /// <code>all-open</code>
+  /// </li>
+  /// <li>
+  /// <code>customer-action-completed</code>
+  /// </li>
   /// <li>
   /// <code>opened</code>
   /// </li>

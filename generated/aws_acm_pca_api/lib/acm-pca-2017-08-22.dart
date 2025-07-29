@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -57,6 +58,7 @@ class ACMPCA {
           client: client,
           service: _s.ServiceMetadata(
             endpointPrefix: 'acm-pca',
+            signingName: 'acm-pca',
           ),
           region: region,
           credentials: credentials,
@@ -96,13 +98,13 @@ class ACMPCA {
   /// </note>
   /// Amazon Web Services Private CA assets that are stored in Amazon S3 can be
   /// protected with encryption. For more information, see <a
-  /// href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaCreateCa.html#crl-encryption">Encrypting
+  /// href="https://docs.aws.amazon.com/privateca/latest/userguide/crl-planning.html#crl-encryption">Encrypting
   /// Your CRLs</a>.
   ///
-  /// May throw [InvalidArgsException].
-  /// May throw [InvalidPolicyException].
-  /// May throw [InvalidTagException].
   /// May throw [LimitExceededException].
+  /// May throw [InvalidArgsException].
+  /// May throw [InvalidTagException].
+  /// May throw [InvalidPolicyException].
   ///
   /// Parameter [certificateAuthorityConfiguration] :
   /// Name and bit size of the private key algorithm, the name of the signing
@@ -253,12 +255,12 @@ class ACMPCA {
   /// You can generate a maximum of one report every 30 minutes.
   /// </note>
   ///
-  /// May throw [RequestInProgressException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
   /// May throw [InvalidArgsException].
+  /// May throw [RequestFailedException].
   /// May throw [InvalidStateException].
+  /// May throw [RequestInProgressException].
   ///
   /// Parameter [auditReportResponseFormat] :
   /// The format in which to create the report. This can be either <b>JSON</b>
@@ -332,12 +334,12 @@ class ACMPCA {
   /// </li>
   /// </ul>
   ///
+  /// May throw [LimitExceededException].
+  /// May throw [PermissionAlreadyExistsException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
-  /// May throw [PermissionAlreadyExistsException].
-  /// May throw [LimitExceededException].
-  /// May throw [InvalidStateException].
   /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
   ///
   /// Parameter [actions] :
   /// The actions that the specified Amazon Web Services service principal can
@@ -419,10 +421,10 @@ class ACMPCA {
   /// href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_RestoreCertificateAuthority.html">RestoreCertificateAuthority</a>
   /// action.
   ///
-  /// May throw [ConcurrentModificationException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
   /// May throw [InvalidStateException].
+  /// May throw [ConcurrentModificationException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Name (ARN) that was returned when you called <a
@@ -500,8 +502,8 @@ class ACMPCA {
   ///
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
-  /// May throw [InvalidStateException].
   /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Number (ARN) of the private CA that issued the
@@ -588,12 +590,12 @@ class ACMPCA {
   /// </li>
   /// </ul>
   ///
-  /// May throw [ConcurrentModificationException].
-  /// May throw [InvalidArnException].
-  /// May throw [InvalidStateException].
   /// May throw [LockoutPreventedException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
+  /// May throw [InvalidArnException].
+  /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
+  /// May throw [ConcurrentModificationException].
   ///
   /// Parameter [resourceArn] :
   /// The Amazon Resource Number (ARN) of the private CA that will have its
@@ -749,11 +751,11 @@ class ACMPCA {
   /// action to create a report that contains information about all of the
   /// certificates issued and revoked by your private CA.
   ///
-  /// May throw [RequestInProgressException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
+  /// May throw [RequestFailedException].
   /// May throw [InvalidStateException].
+  /// May throw [RequestInProgressException].
   ///
   /// Parameter [certificateArn] :
   /// The ARN of the issued certificate. The ARN contains the certificate serial
@@ -799,8 +801,8 @@ class ACMPCA {
   /// before it.
   ///
   /// May throw [ResourceNotFoundException].
-  /// May throw [InvalidStateException].
   /// May throw [InvalidArnException].
+  /// May throw [InvalidStateException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Name (ARN) of your private CA. This is of the form:
@@ -839,11 +841,11 @@ class ACMPCA {
   /// href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ImportCertificateAuthorityCertificate.html">ImportCertificateAuthorityCertificate</a>
   /// action. The CSR is returned as a base64 PEM-encoded string.
   ///
-  /// May throw [RequestInProgressException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
+  /// May throw [RequestFailedException].
   /// May throw [InvalidStateException].
+  /// May throw [RequestInProgressException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Name (ARN) that was returned when you called the <a
@@ -912,15 +914,15 @@ class ACMPCA {
   /// </li>
   /// </ul>
   ///
-  /// May throw [InvalidArnException].
-  /// May throw [InvalidStateException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
+  /// May throw [InvalidArnException].
+  /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
   ///
   /// Parameter [resourceArn] :
   /// The Amazon Resource Number (ARN) of the private CA that will have its
   /// policy retrieved. You can find the CA's ARN by calling the
-  /// ListCertificateAuthorities action.
+  /// ListCertificateAuthorities action. <pre><code> &lt;/p&gt; </code></pre>
   Future<GetPolicyResponse> getPolicy({
     required String resourceArn,
   }) async {
@@ -1080,15 +1082,15 @@ class ACMPCA {
   /// </li>
   /// </ul>
   ///
-  /// May throw [ConcurrentModificationException].
-  /// May throw [RequestInProgressException].
-  /// May throw [RequestFailedException].
+  /// May throw [CertificateMismatchException].
+  /// May throw [MalformedCertificateException].
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
   /// May throw [InvalidRequestException].
+  /// May throw [RequestFailedException].
   /// May throw [InvalidStateException].
-  /// May throw [MalformedCertificateException].
-  /// May throw [CertificateMismatchException].
+  /// May throw [ConcurrentModificationException].
+  /// May throw [RequestInProgressException].
   ///
   /// Parameter [certificate] :
   /// The PEM-encoded certificate for a private CA. This may be a self-signed
@@ -1149,9 +1151,9 @@ class ACMPCA {
   ///
   /// May throw [LimitExceededException].
   /// May throw [ResourceNotFoundException].
-  /// May throw [InvalidStateException].
   /// May throw [InvalidArnException].
   /// May throw [InvalidArgsException].
+  /// May throw [InvalidStateException].
   /// May throw [MalformedCSRException].
   ///
   /// Parameter [certificateAuthorityArn] :
@@ -1400,9 +1402,9 @@ class ACMPCA {
   ///
   /// May throw [ResourceNotFoundException].
   /// May throw [InvalidArnException].
-  /// May throw [InvalidNextTokenException].
-  /// May throw [InvalidStateException].
   /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
+  /// May throw [InvalidNextTokenException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Number (ARN) of the private CA to inspect. You can
@@ -1561,13 +1563,13 @@ class ACMPCA {
   /// </li>
   /// </ul>
   ///
-  /// May throw [ConcurrentModificationException].
-  /// May throw [InvalidArnException].
-  /// May throw [InvalidStateException].
-  /// May throw [InvalidPolicyException].
   /// May throw [LockoutPreventedException].
-  /// May throw [RequestFailedException].
   /// May throw [ResourceNotFoundException].
+  /// May throw [InvalidArnException].
+  /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
+  /// May throw [ConcurrentModificationException].
+  /// May throw [InvalidPolicyException].
   ///
   /// Parameter [policy] :
   /// The path and file name of a JSON-formatted IAM policy to attach to the
@@ -1630,8 +1632,8 @@ class ACMPCA {
   /// ended.
   ///
   /// May throw [ResourceNotFoundException].
-  /// May throw [InvalidStateException].
   /// May throw [InvalidArnException].
+  /// May throw [InvalidStateException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// The Amazon Resource Name (ARN) that was returned when you called the <a
@@ -1686,15 +1688,15 @@ class ACMPCA {
   /// You cannot revoke a root CA self-signed certificate.
   /// </note>
   ///
-  /// May throw [ConcurrentModificationException].
-  /// May throw [InvalidArnException].
-  /// May throw [InvalidRequestException].
-  /// May throw [InvalidStateException].
+  /// May throw [RequestAlreadyProcessedException].
   /// May throw [LimitExceededException].
   /// May throw [ResourceNotFoundException].
-  /// May throw [RequestAlreadyProcessedException].
-  /// May throw [RequestInProgressException].
+  /// May throw [InvalidArnException].
+  /// May throw [InvalidRequestException].
   /// May throw [RequestFailedException].
+  /// May throw [InvalidStateException].
+  /// May throw [ConcurrentModificationException].
+  /// May throw [RequestInProgressException].
   ///
   /// Parameter [certificateAuthorityArn] :
   /// Amazon Resource Name (ARN) of the private CA that issued the certificate
@@ -1862,11 +1864,11 @@ class ACMPCA {
   /// policies for CRLs in Amazon S3</a>.
   /// </note>
   ///
-  /// May throw [ConcurrentModificationException].
   /// May throw [ResourceNotFoundException].
-  /// May throw [InvalidArgsException].
   /// May throw [InvalidArnException].
+  /// May throw [InvalidArgsException].
   /// May throw [InvalidStateException].
+  /// May throw [ConcurrentModificationException].
   /// May throw [InvalidPolicyException].
   ///
   /// Parameter [certificateAuthorityArn] :
@@ -2558,7 +2560,7 @@ class CreateCertificateAuthorityResponse {
 ///
 /// Amazon Web Services Private CA assets that are stored in Amazon S3 can be
 /// protected with encryption. For more information, see <a
-/// href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaCreateCa.html#crl-encryption">Encrypting
+/// href="https://docs.aws.amazon.com/privateca/latest/userguide/crl-planning.html#crl-encryption">Encrypting
 /// Your CRLs</a>.
 ///
 /// Your private CA uses the value in the <b>ExpirationInDays</b> parameter to
@@ -3305,6 +3307,7 @@ enum KeyAlgorithm {
   rsa_4096('RSA_4096'),
   ecPrime256v1('EC_prime256v1'),
   ecSecp384r1('EC_secp384r1'),
+  sm2('SM2'),
   ;
 
   final String value;
@@ -3320,6 +3323,7 @@ enum KeyAlgorithm {
 enum KeyStorageSecurityStandard {
   fips_140_2Level_2OrHigher('FIPS_140_2_LEVEL_2_OR_HIGHER'),
   fips_140_2Level_3OrHigher('FIPS_140_2_LEVEL_3_OR_HIGHER'),
+  ccpcLevel_1OrHigher('CCPC_LEVEL_1_OR_HIGHER'),
   ;
 
   final String value;
@@ -3826,6 +3830,7 @@ enum SigningAlgorithm {
   sha256withrsa('SHA256WITHRSA'),
   sha384withrsa('SHA384WITHRSA'),
   sha512withrsa('SHA512WITHRSA'),
+  sm3withsm2('SM3WITHSM2'),
   ;
 
   final String value;

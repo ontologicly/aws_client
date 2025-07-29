@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
@@ -318,6 +319,8 @@ class GlobalAccelerator {
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
   /// May throw [LimitExceededException].
+  /// May throw [AccessDeniedException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [name] :
   /// The name of the accelerator. The name can have a maximum of 64 characters,
@@ -513,6 +516,7 @@ class GlobalAccelerator {
   /// May throw [InvalidArgumentException].
   /// May throw [LimitExceededException].
   /// May throw [AccessDeniedException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [name] :
   /// The name of a custom routing accelerator. The name can have a maximum of
@@ -957,6 +961,7 @@ class GlobalAccelerator {
   /// May throw [AssociatedListenerFoundException].
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of an accelerator.
@@ -1042,6 +1047,7 @@ class GlobalAccelerator {
   /// May throw [AssociatedListenerFoundException].
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of the custom routing accelerator to
@@ -2176,6 +2182,9 @@ class GlobalAccelerator {
   /// Guide</i>.
   ///
   /// May throw [AcceleratorNotFoundException].
+  /// May throw [AttachmentNotFoundException].
+  /// May throw [EndpointGroupNotFoundException].
+  /// May throw [ListenerNotFoundException].
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
   ///
@@ -2465,6 +2474,8 @@ class GlobalAccelerator {
   /// May throw [AccessDeniedException].
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
+  /// May throw [TransactionInProgressException].
+  /// May throw [ConflictException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of the accelerator to update.
@@ -2522,6 +2533,7 @@ class GlobalAccelerator {
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
   /// May throw [AccessDeniedException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of the accelerator that you want to update.
@@ -2667,6 +2679,8 @@ class GlobalAccelerator {
   /// May throw [AcceleratorNotFoundException].
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
+  /// May throw [TransactionInProgressException].
+  /// May throw [ConflictException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of the accelerator to update.
@@ -2726,6 +2740,7 @@ class GlobalAccelerator {
   /// May throw [InternalServiceErrorException].
   /// May throw [InvalidArgumentException].
   /// May throw [AccessDeniedException].
+  /// May throw [TransactionInProgressException].
   ///
   /// Parameter [acceleratorArn] :
   /// The Amazon Resource Name (ARN) of the custom routing accelerator to update
