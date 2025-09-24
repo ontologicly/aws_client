@@ -6898,6 +6898,7 @@ enum Compatibility {
   ec2('EC2'),
   fargate('FARGATE'),
   external('EXTERNAL'),
+  managedInstances('MANAGED_INSTANCES')
   ;
 
   final String value;
